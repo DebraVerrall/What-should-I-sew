@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Should I Sew? – Sewing Boss</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── TOKENS ── */
+:root {
+  --blue:       #1F2ADE;
+  --pink:       #FCB8D9;
+  --emerald:    #00DF82;
+  --tangerine:  #FF4400;
+  --lilac:      #FEE1F7;
+  --warm-white: #F7F5F2;
+  --stone:      #E6E1DA;
+  --taupe:      #B8B1A8;
+  --charcoal:   #2A2A2A;
+  --ink:        #1A1A1A;
+}
+
+/* ── BASE ── */
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--stone);
+  color: var(--charcoal);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--blue);
+  padding: 20px 28px 18px;
+}
+
+.header-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 4px;
+}
+
+.header-title {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.header-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ── INTRO BAR ── */
+.intro-bar {
+  background: var(--ink);
+  padding: 10px 28px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.5;
+  border-left: 3px solid var(--pink);
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+/* ── SECTION ── */
+.ws-section {
+  background: var(--warm-white);
+  margin-bottom: 3px;
+  border-top: 3px solid var(--blue);
+}
+
+.ws-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 20px 0;
+}
+
+.ws-num {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+}
+
+.ws-title {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ws-instruction {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-top: 3px;
+}
+
+.ws-body {
+  padding: 12px 20px 18px 62px;
+}
+
+/* ── CHIPS ── */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.chip {
+  border: 1.5px solid var(--taupe);
+  background: #fff;
+  padding: 6px 14px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.chip.selected {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* ── CHIP LABEL ── */
+.chip-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+
+.chip-label:first-child {
+  margin-top: 0;
+}
+
+/* ── SCALE ── */
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.scale-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--charcoal);
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.scale-track {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+
+.scale-pip {
+  flex: 1;
+  height: 28px;
+  border: 1.5px solid var(--stone);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.scale-pip:hover {
+  border-color: var(--taupe);
+}
+
+.scale-pip.active {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 132px;
+  margin-top: -4px;
+  margin-bottom: 6px;
+}
+
+.scale-end {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--taupe);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── FUNCTION CHIPS ── */
+.fn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.fn-chip {
+  border: 1.5px solid var(--stone);
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fn-chip:hover {
+  border-color: var(--blue);
+}
+
+.fn-chip.selected {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.fn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  flex-shrink: 0;
+}
+
+.fn-chip.selected .fn-dot {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+
+.max-notice {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--tangerine);
+  margin-top: 8px;
+  display: none;
+}
+
+.max-notice.show {
+  display: block;
+}
+
+/* ── STYLE CARDS ── */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.style-card {
+  border: 2px solid var(--stone);
+  background: #fff;
+  padding: 14px 10px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.style-card:hover {
+  border-color: var(--taupe);
+}
+
+.style-card.selected {
+  border-color: var(--blue);
+  background: var(--lilac);
+}
+
+.style-icon {
+  font-size: 20px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.style-name {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+
+.style-desc {
+  font-size: 9px;
+  color: var(--taupe);
+  margin-top: 3px;
+  line-height: 1.35;
+}
+
+/* ── BUTTON ── */
+.generate-wrap {
+  text-align: center;
+  padding: 28px 0 0;
+}
+
+.btn-generate {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-generate:hover:not(:disabled) {
+  background: #1721b8;
+}
+
+.btn-generate:disabled {
+  background: var(--taupe);
+  cursor: not-allowed;
+}
+
+.generate-hint {
+  font-size: 11px;
+  color: var(--taupe);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* ── RESULT OVERLAY ── */
+#result-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.82);
+  z-index: 100;
+  overflow-y: auto;
+  padding: 32px 16px;
+}
+
+#result-overlay.show {
+  display: block;
+}
+
+#result-card {
+  max-width: 620px;
+  margin: 0 auto;
+  background: var(--warm-white);
+  position: relative;
+}
+
+.result-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  line-height: 1;
+  z-index: 10;
+  background: none;
+  border: none;
+}
+
+.result-close:hover {
+  color: #fff;
+}
+
+/* Result header */
+.result-header {
+  background: var(--blue);
+  padding: 22px 24px 18px;
+}
+
+.result-header-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 6px;
+}
+
+.result-header-title {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.result-header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+
+/* Result body */
+.result-body {
+  padding: 20px 24px 0;
+}
+
+/* Result boxes */
+.result-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rbox {
+  padding: 14px 12px;
+  border: 2px solid var(--stone);
+}
+
+.rbox.primary {
+  border-color: var(--emerald);
+}
+
+.rbox.backup {
+  border-color: var(--blue);
+}
+
+.rbox.avoid {
+  border-color: var(--tangerine);
+}
+
+.rbox-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.rbox.primary .rbox-label {
+  color: var(--emerald);
+}
+
+.rbox.backup .rbox-label {
+  color: var(--blue);
+}
+
+.rbox.avoid .rbox-label {
+  color: var(--tangerine);
+}
+
+.rbox-garment {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.rbox-reason {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+
+/* Reality check */
+.result-reality {
+  border-top: 2px solid var(--ink);
+  padding: 14px 0 0;
+  margin-bottom: 16px;
+}
+
+.result-reality-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.reality-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 16px;
+}
+
+.rcheck {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.35;
+}
+
+.rcheck-box {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--charcoal);
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #fff;
+}
+
+.result-final-line {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--tangerine);
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* CTA strip */
+.result-cta {
+  background: var(--blue);
+  margin: 0 -24px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.result-cta-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+}
+
+.result-cta-link {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pink);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* Action buttons */
+.result-actions {
+  background: var(--stone);
+  padding: 14px 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-print {
+  background: var(--ink);
+  color: #fff;
+}
+
+.btn-print:hover {
+  background: #333;
+}
+
+.btn-pdf {
+  background: var(--emerald);
+  color: var(--ink);
+}
+
+.btn-pdf:hover {
+  background: #00c070;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--taupe);
+  border: 1.5px solid var(--taupe);
+}
+
+.btn-back:hover {
+  border-color: var(--charcoal);
+  color: var(--charcoal);
+}
+
+/* ── PRINT ── */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #result-card, #result-card * {
+    visibility: visible;
+  }
+  #result-overlay {
+    display: block !important;
+    position: static;
+    background: none;
+    padding: 0;
+  }
+  #result-card {
+    max-width: 100%;
+    box-shadow: none;
+    margin: 0;
+  }
+  .result-actions {
+    display: none;
+  }
+  .result-close {
+    display: none;
+  }
+  .result-header, .result-cta, .result-reality {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="site-header">
+  <p class="header-eyebrow">Sewing Boss Learning Lab — Decision Tool</p>
+  <h1 class="header-title">What Should I Sew?</h1>
+  <p class="header-sub">Work through the steps, then get your result.</p>
+</div>
+
+<!-- INTRO -->
+<div class="intro-bar">
+  Most sewing mistakes happen before the first cut. Fill in what you know about your fabric and your situation — then generate your result at the bottom.
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ── STEP 1: FABRIC ── -->
+  <div class="ws-section">
+    <div class="ws-section-header">
+      <span class="ws-num">1</span>
+      <div>
+        <h2 class="ws-title">Start With Your Fabric</h2>
+        <p class="ws-instruction">→ Select all that apply</p>
+      </div>
+    </div>
+    <div class="ws-body">
+
+      <p class="chip-label">Fabric Type</p>
+      <div class="chip-group">
+        <div class="chip" data-key="fabric-type" data-value="woven">Woven</div>
+        <div class="chip" data-key="fabric-type" data-value="knit">Knit</div>
+        <div class="chip" data-key="fabric-type" data-value="unsure">Not sure</div>
+      </div>
+
+      <p class="chip-label">Weight</p>
+      <div class="chip-group">
+        <div class="chip" data-key="weight" data-value="light">Light</div>
+        <div class="chip" data-key="weight" data-value="medium">Medium</div>
+        <div class="chip" data-key="weight" data-value="heavy">Heavy</div>
+      </div>
+
+      <p class="chip-label">Drape</p>
+      <div class="chip-group">
+        <div class="chip" data-key="drape" data-value="fluid">Fluid</div>
+        <div class="chip" data-key="drape" data-value="crisp">Crisp</div>
+        <div class="chip" data-key="drape" data-value="stable">Stable</div>
+      </div>
+
+      <p class="chip-label">Stretch (if knit)</p>
+      <div class="chip-group">
+        <div class="chip" data-key="stretch" data-value="2way">2-way</div>
+        <div class="chip" data-key="stretch" data-value="4way">4-way</div>
+        <div class="chip" data-key="stretch" data-value="high">High recovery</div>
+        <div class="chip" data-key="stretch" data-value="na">N/A</div>
+      </div>
+
+      <p class="chip-label">Yardage</p>
+      <div class="chip-group">
+        <div class="chip" data-key="yardage" data-value="under1.5">Under 1.5m</div>
+        <div class="chip" data-key="yardage" data-value="1.5-3">1.5–3m</div>
+        <div class="chip" data-key="yardage" data-value="over3">3m+</div>
+      </div>
+
+      <p class="chip-label">Print / Pattern</p>
+      <div class="chip-group">
+        <div class="chip" data-key="print" data-value="large">Large / directional</div>
+        <div class="chip" data-key="print" data-value="stripe">Stripe / check</div>
+        <div class="chip" data-key="print" data-value="plain">Plain</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── STEP 2: SEASON + USE ── -->
+  <div class="ws-section">
+    <div class="ws-section-header">
+      <span class="ws-num">2</span>
+      <div>
+        <h2 class="ws-title">Season + Use</h2>
+        <p class="ws-instruction">→ Select what matters most</p>
+      </div>
+    </div>
+    <div class="ws-body">
+      <p class="chip-label">Season</p>
+      <div class="chip-group">
+        <div class="chip" data-key="season" data-value="summer">Summer</div>
+        <div class="chip" data-key="season" data-value="autumn">Autumn / Winter</div>
+        <div class="chip" data-key="season" data-value="spring">Spring</div>
+        <div class="chip" data-key="season" data-value="year-round">Year-round</div>
+      </div>
+
+      <p class="chip-label">Primary Use</p>
+      <div class="chip-group">
+        <div class="chip" data-key="use" data-value="casual">Everyday / casual</div>
+        <div class="chip" data-key="use" data-value="work">Work / smart</div>
+        <div class="chip" data-key="use" data-value="occasion">Special occasion</div>
+        <div class="chip" data-key="use" data-value="lounge">Lounge / at home</div>
+        <div class="chip" data-key="use" data-value="active">Active / sport</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: FUNCTION ── -->
+  <div class="ws-section">
+    <div class="ws-section-header">
+      <span class="ws-num">3</span>
+      <div>
+        <h2 class="ws-title">What Does This Garment Need to Do?</h2>
+        <p class="ws-instruction">→ Choose up to TWO</p>
+      </div>
+    </div>
+    <div class="ws-body">
+      <div class="fn-group">
+        <div class="fn-chip" data-key="function" data-value="move"><span class="fn-dot"></span>Move freely</div>
+        <div class="fn-chip" data-key="function" data-value="polish"><span class="fn-dot"></span>Look polished</div>
+        <div class="fn-chip" data-key="function" data-value="comfort"><span class="fn-dot"></span>Feel comfortable all day</div>
+        <div class="fn-chip" data-key="function" data-value="body"><span class="fn-dot"></span>Work for body concern</div>
+        <div class="fn-chip" data-key="function" data-value="layer"><span class="fn-dot"></span>Layer easily</div>
+        <div class="fn-chip" data-key="function" data-value="shape"><span class="fn-dot"></span>Hold defined shape</div>
+      </div>
+      <p class="max-notice" id="max-notice">Maximum 2 — deselect one to change.</p>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: TIME + SKILL ── -->
+  <div class="ws-section">
+    <div class="ws-section-header">
+      <span class="ws-num">4</span>
+      <div>
+        <h2 class="ws-title">Time + Skill</h2>
+        <p class="ws-instruction">→ Be realistic</p>
+      </div>
+    </div>
+    <div class="ws-body">
+
+      <div class="scale-row">
+        <span class="scale-name">Time available</span>
+        <div class="scale-track" data-scale="time">
+          <div class="scale-pip" data-scale="time" data-val="1"></div>
+          <div class="scale-pip" data-scale="time" data-val="2"></div>
+          <div class="scale-pip" data-scale="time" data-val="3"></div>
+          <div class="scale-pip" data-scale="time" data-val="4"></div>
+          <div class="scale-pip" data-scale="time" data-val="5"></div>
+        </div>
+      </div>
+      <div class="scale-ends">
+        <span class="scale-end">A few hours</span>
+        <span class="scale-end">A full week+</span>
+      </div>
+
+      <div class="scale-row">
+        <span class="scale-name">Skill level</span>
+        <div class="scale-track" data-scale="skill">
+          <div class="scale-pip" data-scale="skill" data-val="1"></div>
+          <div class="scale-pip" data-scale="skill" data-val="2"></div>
+          <div class="scale-pip" data-scale="skill" data-val="3"></div>
+          <div class="scale-pip" data-scale="skill" data-val="4"></div>
+          <div class="scale-pip" data-scale="skill" data-val="5"></div>
+        </div>
+      </div>
+      <div class="scale-ends">
+        <span class="scale-end">Confident beginner</span>
+        <span class="scale-end">Advanced</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── STEP 5: STYLE ── -->
+  <div class="ws-section">
+    <div class="ws-section-header">
+      <span class="ws-num">5</span>
+      <div>
+        <h2 class="ws-title">Style Direction</h2>
+        <p class="ws-instruction">→ Go with what you actually wear</p>
+      </div>
+    </div>
+    <div class="ws-body">
+      <div class="style-grid">
+        <div class="style-card" data-key="style" data-value="minimal">
+          <span class="style-icon">◻</span>
+          <p class="style-name">Clean + Minimal</p>
+          <p class="style-desc">Simple lines, neutral palette</p>
+        </div>
+        <div class="style-card" data-key="style" data-value="relaxed">
+          <span class="style-icon">◈</span>
+          <p class="style-name">Relaxed + Casual</p>
+          <p class="style-desc">Comfortable, everyday</p>
+        </div>
+        <div class="style-card" data-key="style" data-value="polished">
+          <span class="style-icon">◆</span>
+          <p class="style-name">Polished + Classic</p>
+          <p class="style-desc">Tailored, wear anywhere</p>
+        </div>
+        <div class="style-card" data-key="style" data-value="expressive">
+          <span class="style-icon">◉</span>
+          <p class="style-name">Expressive / Print-led</p>
+          <p class="style-desc">Bold, personality-first</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="generate-wrap">
+    <button class="btn-generate" id="btn-generate" disabled>Get My Result →</button>
+    <p class="generate-hint" id="generate-hint">Complete Steps 1–5 to enable.</p>
+  </div>
+
+</div>
+
+<!-- ── RESULT OVERLAY ── -->
+<div id="result-overlay">
+  <div id="result-card">
+    <button class="result-close" id="close-result">✕</button>
+
+    <div class="result-header">
+      <p class="result-header-eyebrow">Your Result</p>
+      <h2 class="result-header-title">Your Best Match</h2>
+      <p class="result-header-sub" id="r-sub"></p>
+    </div>
+
+    <div class="result-body">
+      <div class="result-boxes">
+        <div class="rbox primary">
+          <p class="rbox-label">Primary Choice</p>
+          <p class="rbox-garment" id="r-primary-garment"></p>
+          <p class="rbox-reason" id="r-primary-reason"></p>
+        </div>
+        <div class="rbox backup">
+          <p class="rbox-label">Backup Option</p>
+          <p class="rbox-garment" id="r-backup-garment"></p>
+          <p class="rbox-reason" id="r-backup-reason"></p>
+        </div>
+        <div class="rbox avoid">
+          <p class="rbox-label">Avoid</p>
+          <p class="rbox-garment" id="r-avoid-garment"></p>
+          <p class="rbox-reason" id="r-avoid-reason"></p>
+        </div>
+      </div>
+
+      <div class="result-reality">
+        <p class="result-reality-title">Be Honest Before You Cut</p>
+        <div class="reality-checks">
+          <div class="rcheck"><span class="rcheck-box"></span>This fabric suits the garment</div>
+          <div class="rcheck"><span class="rcheck-box"></span>I have enough fabric</div>
+          <div class="rcheck"><span class="rcheck-box"></span>I have the required skills</div>
+          <div class="rcheck"><span class="rcheck-box"></span>I have time to finish</div>
+          <div class="rcheck"><span class="rcheck-box"></span>I would actually wear this</div>
+          <div class="rcheck"><span class="rcheck-box"></span>I've planned for fitting</div>
+        </div>
+        <p class="result-final-line">If you can't tick every box — adjust now.</p>
+      </div>
+
+      <div class="result-cta">
+        <p class="result-cta-text">Want a second opinion? Join Sewing Boss Squad.</p>
+        <a href="https://www.skool.com/sewing-boss-learning-lab-6449/about" class="result-cta-link" target="_blank">Join →</a>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-action btn-back" id="btn-back">← Edit</button>
+      <button class="btn-action btn-print" id="btn-print">Print</button>
+      <button class="btn-action btn-pdf" id="btn-pdf">Download PDF</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const state = {
+  'fabric-type': null,
+  'weight': null,
+  'drape': null,
+  'stretch': null,
+  'yardage': null,
+  'print': null,
+  'season': null,
+  'use': null,
+  'function': [],
+  'time': 0,
+  'skill': 0,
+  'style': null
+};
+
+// ── CHIP LISTENERS ──
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    const key = chip.dataset.key;
+    const val = chip.dataset.value;
+    const group = chip.parentElement;
+    
+    // Clear others in group
+    group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    
+    // Select this one
+    chip.classList.add('selected');
+    state[key] = val;
+    
+    updateProgress();
+  });
+});
+
+// ── FUNCTION LISTENERS (max 2) ──
+document.querySelectorAll('.fn-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const val = chip.dataset.value;
+    const isSelected = chip.classList.contains('selected');
+    
+    if (!isSelected && state['function'].length >= 2) {
+      document.getElementById('max-notice').classList.add('show');
+      return;
+    }
+    
+    chip.classList.toggle('selected');
+    if (chip.classList.contains('selected')) {
+      state['function'].push(val);
+    } else {
+      state['function'] = state['function'].filter(v => v !== val);
+    }
+    
+    document.getElementById('max-notice').classList.toggle('show', state['function'].length >= 2);
+    updateProgress();
+  });
+});
+
+// ── SCALE LISTENERS ──
+document.querySelectorAll('.scale-pip').forEach(pip => {
+  pip.addEventListener('click', () => {
+    const scale = pip.dataset.scale;
+    const val = parseInt(pip.dataset.val);
+    
+    state[scale] = val;
+    
+    // Update all pips in this track
+    pip.parentElement.querySelectorAll('.scale-pip').forEach(p => {
+      if (parseInt(p.dataset.val) <= val) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+    
+    updateProgress();
+  });
+});
+
+// ── STYLE LISTENERS ──
+document.querySelectorAll('.style-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state['style'] = card.dataset.value;
+    updateProgress();
+  });
+});
+
+// ── PROGRESS CHECK ──
+function updateProgress() {
+  const checks = [
+    state['fabric-type'],
+    state['weight'],
+    state['season'],
+    state['use'],
+    state['function'].length > 0,
+    state['time'] > 0,
+    state['skill'] > 0,
+    state['style']
+  ];
+  
+  const complete = checks.filter(Boolean).length;
+  const isReady = complete === checks.length;
+  
+  document.getElementById('btn-generate').disabled = !isReady;
+  document.getElementById('generate-hint').textContent = isReady 
+    ? "You're ready — generate your result."
+    : `${Math.round((complete / checks.length) * 100)}% complete`;
+}
+
+// ── GENERATE RESULT ──
+document.getElementById('btn-generate').addEventListener('click', () => {
+  const result = computeResult();
+  
+  document.getElementById('r-sub').textContent = 
+    `${state['fabric-type'] || '—'} · ${state['use'] || '—'} · ${state['style'] || '—'}`;
+  
+  document.getElementById('r-primary-garment').textContent = result.primary;
+  document.getElementById('r-primary-reason').textContent = result.primaryReason;
+  document.getElementById('r-backup-garment').textContent = result.backup;
+  document.getElementById('r-backup-reason').textContent = result.backupReason;
+  document.getElementById('r-avoid-garment').textContent = result.avoid;
+  document.getElementById('r-avoid-reason').textContent = result.avoidReason;
+  
+  document.getElementById('result-overlay').classList.add('show');
+});
+
+// ── CLOSE RESULT ──
+document.getElementById('close-result').addEventListener('click', () => {
+  document.getElementById('result-overlay').classList.remove('show');
+});
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  document.getElementById('result-overlay').classList.remove('show');
+});
+
+// ── PRINT ──
+document.getElementById('btn-print').addEventListener('click', () => {
+  window.print();
+});
+
+// ── PDF ──
+document.getElementById('btn-pdf').addEventListener('click', () => {
+  downloadPDF();
+});
+
+// ── DECISION ENGINE ──
+function computeResult() {
+  const fType = state['fabric-type'];
+  const weight = state['weight'];
+  const drape = state['drape'];
+  const use = state['use'];
+  const time = state['time'];
+  const fns = state['function'];
+  const style = state['style'];
+  
+  let primary = '', primaryReason = '';
+  let backup = '', backupReason = '';
+  let avoid = '', avoidReason = '';
+  
+  if (fType === 'knit') {
+    avoid = 'Structured tailoring, crisp edges';
+    avoidReason = 'Knit needs stretch-friendly construction.';
+    
+    if (use === 'active' || state['stretch'] === '4way') {
+      primary = 'Fitted activewear or leggings';
+      primaryReason = '4-way stretch is made for fitted, active pieces.';
+      backup = 'Fitted T-shirt or base layer';
+      backupReason = 'Quick, shows off the stretch.';
+    } else if (time <= 2) {
+      primary = 'Simple T-shirt or tank';
+      primaryReason = 'Light on time, low risk, achievable.';
+      backup = 'Stretch waistband skirt';
+      backupReason = 'Minimal construction.';
+    } else if (style === 'polished' || fns.includes('polish')) {
+      primary = 'Fitted ponte dress';
+      primaryReason = 'Stable knit + polished intent = professional silhouette.';
+      backup = 'Knit blazer';
+      backupReason = 'Adds formality without sacrificing comfort.';
+    } else {
+      primary = 'Sweatshirt or relaxed pullover';
+      primaryReason = 'Good for your time and skill level.';
+      backup = 'Lounge set (top + pant)';
+      backupReason = 'Maximises fabric and feels cohesive.';
+    }
+  } else if (fType === 'woven') {
+    avoid = 'Close-fitted shapes, anything needing stretch';
+    avoidReason = 'Woven has no give — needs careful toiling.';
+    
+    if (weight === 'heavy') {
+      primary = style === 'polished' ? 'Tailored trousers or A-line skirt' : 'Relaxed jacket or unlined coat';
+      primaryReason = `Heavy woven holds structure — ideal for ${style === 'polished' ? 'tailored' : 'structured'} pieces.`;
+      backup = 'Wide-leg pants';
+      backupReason = 'Works with gravity, less fit complexity.';
+    } else if (weight === 'light') {
+      if (drape === 'fluid') {
+        primary = 'Flowing dress or blouse';
+        primaryReason = 'Fluid lightweight woven shows movement best.';
+        backup = 'Button-front blouse';
+        backupReason = 'Manageable, flatters drape.';
+      } else {
+        primary = 'Shift dress or simple shirt';
+        primaryReason = 'Crisp lightweight suits clean shapes.';
+        backup = 'A-line skirt';
+        backupReason = 'Simple, excellent result.';
+      }
+    } else {
+      primary = style === 'polished' ? 'Lined skirt or trousers' : 'Casual shirt or blouse';
+      primaryReason = `Medium woven is the workhorse — suits your ${use} context.`;
+      backup = style === 'polished' ? 'Smart shirt dress' : 'Pull-on trousers';
+      backupReason = style === 'polished' ? 'Versatile for work or smart casual.' : 'No zip needed — reduces complexity.';
+    }
+  } else {
+    primary = 'Do a pull test first';
+    primaryReason = 'Pull across grain. Stretches = knit. No stretch = woven.';
+    backup = 'Start simple once you know';
+    backupReason = 'Construction depends on fabric type.';
+    avoid = 'Cutting anything';
+    avoidReason = 'Confirm fabric type first.';
+  }
+  
+  return { primary, primaryReason, backup, backupReason, avoid, avoidReason };
+}
+
+// ── PDF DOWNLOAD ──
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  
+  const blue = [31, 42, 222];
+  const ink = [26, 26, 26];
+  const emerald = [0, 223, 130];
+  const tangerine = [255, 68, 0];
+  const pink = [252, 184, 217];
+  const stone = [230, 225, 218];
+  
+  let y = 0;
+  const m = 18;
+  const w = 210 - m * 2;
+  
+  // Header
+  doc.setFillColor(...blue);
+  doc.rect(0, 0, 210, 30, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text('What Should I Sew? — Your Result', m, 12);
+  doc.setTextColor(...pink);
+  doc.setFontSize(8);
+  doc.text('Sewing Boss Learning Lab', m, 22);
+  
+  y = 38;
+  
+  // Summary
+  doc.setFillColor(...stone);
+  doc.rect(m, y, w, 8, 'F');
+  doc.setTextColor(...ink);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7);
+  const tags = `${state['fabric-type']} · ${state['use']} · ${state['style']} · Time: ${state['time']}/5 · Skill: ${state['skill']}/5`;
+  doc.text(tags, m + 4, y + 5);
+  
+  y += 12;
+  
+  // Result boxes
+  const boxW = (w - 6) / 3;
+  const boxes = [
+    { label: 'PRIMARY', color: emerald, text: `${document.getElementById('r-primary-garment').textContent}\n\n${document.getElementById('r-primary-reason').textContent}` },
+    { label: 'BACKUP', color: blue, text: `${document.getElementById('r-backup-garment').textContent}\n\n${document.getElementById('r-backup-reason').textContent}` },
+    { label: 'AVOID', color: tangerine, text: `${document.getElementById('r-avoid-garment').textContent}\n\n${document.getElementById('r-avoid-reason').textContent}` },
+  ];
+  
+  boxes.forEach((box, i) => {
+    const bx = m + i * (boxW + 2);
+    doc.setDrawColor(...box.color);
+    doc.setLineWidth(0.8);
+    doc.rect(bx, y, boxW, 50);
+    
+    doc.setTextColor(...box.color);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.text(box.label, bx + 3, y + 5);
+    
+    doc.setTextColor(...ink);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text(box.text, bx + 3, y + 11, { maxWidth: boxW - 6 });
+  });
+  
+  y += 56;
+  
+  // Reality check
+  doc.setDrawColor(...ink);
+  doc.line(m, y, m + w, y);
+  y += 6;
+  
+  doc.setTextColor(...ink);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8);
+  doc.text('Be Honest Before You Cut', m, y);
+  y += 8;
+  
+  const checks = ['Fabric suits garment', 'Have enough fabric', 'Have required skills', 'Have time to finish', 'Would actually wear', 'Planned for fitting'];
+  checks.forEach((c, i) => {
+    doc.setDrawColor(...ink);
+    doc.rect(m, y + (i * 5), 3, 3);
+    doc.setTextColor(...ink);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.text(c, m + 5, y + (i * 5) + 2.5);
+  });
+  
+  doc.save('sewing-boss-what-should-i-sew.pdf');
+}
+
+</script>
+
+</body>
+</html>
